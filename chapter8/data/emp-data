@@ -1,0 +1,14 @@
+put --key=7369 --value=('empno':7369,'name':'SMITH','job':'CLERK','deptno':20) --value-class=io.pivotal.domain.Employee --region=employees;
+put --key=7370 --value=('empno':7370,'name':'APPLES','job':'MANAGER','deptno':10) --value-class=io.pivotal.domain.Employee --region=employees;
+put --key=7371 --value=('empno':7371,'name':'WILLIAMS','job':'SALESMAN','deptno':10) --value-class=io.pivotal.domain.Employee --region=employees;
+put --key=7372 --value=('empno':7372,'name':'LUCIA','job':'PRESIDENT','deptno':30) --value-class=io.pivotal.domain.Employee --region=employees;
+put --key=7373 --value=('empno':7373,'name':'SIENA','job':'CLERK','deptno':40) --value-class=io.pivotal.domain.Employee --region=employees;
+put --key=7374 --value=('empno':7374,'name':'LUCAS','job':'SALESMAN','deptno':10) --value-class=io.pivotal.domain.Employee --region=employees;
+put --key=7375 --value=('empno':7375,'name':'ROB','job':'CLERK','deptno':30) --value-class=io.pivotal.domain.Employee --region=employees;
+put --key=7376 --value=('empno':7376,'name':'ADRIAN','job':'CLERK','deptno':20) --value-class=io.pivotal.domain.Employee --region=employees;
+put --key=7377 --value=('empno':7377,'name':'ADAM','job':'CLERK','deptno':20) --value-class=io.pivotal.domain.Employee --region=employees;
+put --key=7378 --value=('empno':7378,'name':'SALLY','job':'MANAGER','deptno':20) --value-class=io.pivotal.domain.Employee --region=employees;
+put --key=7379 --value=('empno':7379,'name':'FRANK','job':'CLERK','deptno':10) --value-class=io.pivotal.domain.Employee --region=employees;
+put --key=7380 --value=('empno':7380,'name':'BLACK','job':'CLERK','deptno':40) --value-class=io.pivotal.domain.Employee --region=employees;
+put --key=7381 --value=('empno':7381,'name':'BROWN','job':'SALESMAN','deptno':40) --value-class=io.pivotal.domain.Employee --region=employees;
+

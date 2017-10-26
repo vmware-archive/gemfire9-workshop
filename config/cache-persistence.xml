@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE cache PUBLIC
+    "-//GemStone Systems, Inc.//GemFire Declarative Caching 7.0//EN"
+    "http://www.gemstone.com/dtd/cache7_0.dtd">
+
+<cache>
+    <cache-server port="40001"/>
+    
+    <disk-store name="ds1" auto-compact="true" max-oplog-size="1024" queue-size="10000" time-interval="15">
+        <disk-dirs>
+            <disk-dir dir-size="4096">persistData1</disk-dir>
+        </disk-dirs>
+    </disk-store>
+
+    <pdx read-serialized="true"  persistent="true" >
+        <pdx-serializer>
+            <class-name>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</class-name>
+            <parameter name="classes">
+                <string>io.pivotal.domain.*</string>
+             </parameter>
+        </pdx-serializer>
+    </pdx>
+
+    <region name="people">
+        <region-attributes refid="PARTITION_PERSISTENT" disk-store-name="ds1" disk-synchronous="false">
+            <key-constraint>java.lang.String</key-constraint>
+            <value-constraint>io.pivotal.domain.Person</value-constraint>
+            <partition-attributes redundant-copies="1" total-num-buckets="11"/>
+            <eviction-attributes>
+                <lru-heap-percentage action="overflow-to-disk"/>
+            </eviction-attributes>
+        </region-attributes>
+    </region>
+    
+    <region name="employees">
+        <region-attributes data-policy="partition">
+            <key-constraint>java.lang.String</key-constraint>
+            <value-constraint>io.pivotal.app.domain.Employee</value-constraint>
+            <partition-attributes redundant-copies="1" total-num-buckets="11"/>
+            <eviction-attributes>
+                <lru-heap-percentage action="overflow-to-disk"/>
+            </eviction-attributes>
+        </region-attributes>
+    </region>
+    <region name="departments">
+        <region-attributes data-policy="replicate">
+           <key-constraint>java.lang.String</key-constraint>
+           <value-constraint>io.pivotal.app.domain.Department</value-constraint>
+           <eviction-attributes>
+                <lru-heap-percentage action="overflow-to-disk"/>
+           </eviction-attributes>
+        </region-attributes>
+    </region>
+    
+    <resource-manager critical-heap-percentage="75" eviction-heap-percentage="65"/>
+</cache>
+

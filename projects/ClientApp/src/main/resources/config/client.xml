@@ -1,0 +1,24 @@
+<!DOCTYPE client-cache PUBLIC 
+"-//GemStone Systems, Inc.//GemFire Declarative Caching 7//EN" 
+"http://www.gemstone.com/dtd/cache8_0.dtd">
+<client-cache>	
+  
+    <pdx>
+	 <pdx-serializer>
+	   <class-name>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</class-name>
+	   <parameter name="classes">
+	   		<string>io.pivotal.domain.*</string>
+	   </parameter>
+	 </pdx-serializer>
+    </pdx>
+  
+	<!-- No cache storage in the client region because of the PROXY client region shortcut setting. -->
+
+    <region name="departments">
+      <region-attributes refid="PROXY" pool-name="gfPool" />
+    </region>   
+		
+    <region name="employees">
+		<region-attributes refid="PROXY" pool-name="gfPool" />
+    </region>
+</client-cache>

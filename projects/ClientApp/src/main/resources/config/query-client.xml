@@ -1,0 +1,33 @@
+<!DOCTYPE client-cache PUBLIC 
+"-//GemStone Systems, Inc.//GemFire Declarative Caching 8//EN" 
+"http://www.gemstone.com/dtd/cache8_0.dtd">
+<client-cache>
+
+    <pool name="clientPool" max-connections="10">
+        <locator host="gemhost" port="10334"/>
+    </pool>
+
+    <pdx>
+	 <pdx-serializer>
+	   <class-name>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</class-name>
+	   <parameter name="classes">
+	   		<string>.*</string>
+	   </parameter>
+	 </pdx-serializer>
+    </pdx>
+  
+	<!-- No cache storage in the client region because of the PROXY client region shortcut setting. -->
+
+    <region name="departments">
+      <region-attributes refid="PROXY" pool-name="clientPool" />
+    </region>   
+		
+    <region name="employees">
+		<region-attributes refid="PROXY" pool-name="clientPool" />
+    </region>
+
+    <region name="people">
+        <region-attributes refid="PROXY" pool-name="clientPool" />
+    </region>
+
+</client-cache>

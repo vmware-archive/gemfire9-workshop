@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>io.pivotal</groupId>
+		<artifactId>parent-pom</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+    <artifactId>projects</artifactId>
+	<packaging>pom</packaging>
+
+	<name>parent-pom</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<geode.version>1.1.0</geode.version>
+		<spring-data-geode.version>1.0.0.INCUBATING-RELEASE</spring-data-geode.version>
+		<spring-shell.version>1.2.0.RELEASE</spring-shell.version>
+		<spring-boot.version>1.5.1.RELEASE</spring-boot.version>
+		<slf4j.version>1.7.23</slf4j.version>
+	</properties>
+
+	<modules>
+		<module>ClientApp</module>
+		<module>Domain</module>
+		<module>GemServer</module>
+		<module>PeopleDomain</module>
+		<module>Security</module>
+	</modules>
+	
+    <dependencies>
+		<dependency>
+			<groupId>org.apache.geode</groupId>
+			<artifactId>geode-core</artifactId>
+			<version>${geode.version}</version>
+			<scope>provided</scope>
+		</dependency>
+         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.1.4.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.10</version>
+        </dependency>
+     </dependencies>
+    <repositories>
+        <repository>
+            <id>spring-maven-milestone</id>
+            <name>Springframework Maven Repository</name>
+            <url>http://maven.springframework.org/milestone</url>
+        </repository>
+ 		<repository>
+		<id>gemfire-release-repo</id>
+		<name>Pivotal GemFire Release Repository</name>
+		<url>https://commercial-repo.pivotal.io/data3/gemfire-release-repo/gemfire</url>
+		</repository>    </repositories>
+</project>

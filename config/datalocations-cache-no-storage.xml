@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE cache PUBLIC
+        "-//GemStone Systems, Inc.//GemFire Declarative Caching 7.0//EN"
+        "http://www.gemstone.com/dtd/cache7_0.dtd">
+
+<cache>
+    <cache-server port="0" />
+
+    <pdx read-serialized="true">
+        <pdx-serializer>
+            <class-name>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</class-name>
+            <parameter name="classes">
+                <string>io.pivotal.domain.*</string>
+            </parameter>
+        </pdx-serializer>
+    </pdx>
+
+    <region name="employees" >
+        <region-attributes data-policy="partition" >
+            <partition-attributes local-max-memory="0" redundant-copies="1" total-num-buckets="11"/>
+            <subscription-attributes interest-policy="all"/>
+            <eviction-attributes>
+                <lru-heap-percentage action="overflow-to-disk"/>
+            </eviction-attributes>
+        </region-attributes>
+    </region>
+</cache>

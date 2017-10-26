@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE cache PUBLIC
+    "-//GemStone Systems, Inc.//GemFire Declarative Caching 8.0//EN"
+    "http://www.gemstone.com/dtd/cache8_0.dtd">
+
+<cache>
+    
+    <pdx read-serialized="true">
+        <pdx-serializer>
+            <class-name>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</class-name>
+            <parameter name="classes">
+                <string>io.pivotal.domain.*</string>
+            </parameter>
+        </pdx-serializer>
+    </pdx>
+
+    <region name="employees">
+        <region-attributes data-policy="partition">
+            <key-constraint>java.lang.String</key-constraint>
+            <value-constraint>io.pivotal.domain.Employee</value-constraint>
+            <partition-attributes redundant-copies="1" total-num-buckets="11"/>
+            <eviction-attributes>
+                <lru-heap-percentage action="overflow-to-disk"/>
+            </eviction-attributes>
+        </region-attributes>
+    </region>
+
+    <region name="departments">
+        <region-attributes data-policy="partition">
+           <key-constraint>java.lang.String</key-constraint>
+           <value-constraint>io.pivotal.domain.Department</value-constraint>
+           <partition-attributes redundant-copies="1" total-num-buckets="11"/>
+           <eviction-attributes>
+                <lru-heap-percentage action="overflow-to-disk"/>
+           </eviction-attributes>
+        </region-attributes>
+    </region>
+
+    
+    <region name="people">
+        <region-attributes data-policy="partition">
+            <partition-attributes redundant-copies="1" total-num-buckets="11"/>
+        </region-attributes>
+    </region>
+    
+    
+    <resource-manager critical-heap-percentage="75" eviction-heap-percentage="65"/>
+</cache>
+

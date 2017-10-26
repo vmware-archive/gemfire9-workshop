@@ -1,0 +1,1 @@
+ java -Xms512m -Xmx512m -Dgemfire.locators=10.172.156.32[10334] -classpath lib/domain.jar:lib/clientapp.jar:$GEMFIRE/lib/server-dependencies.jar:lib/security.jar:lib/secureserver.jar quickstart.MultiuserSecurityServer
