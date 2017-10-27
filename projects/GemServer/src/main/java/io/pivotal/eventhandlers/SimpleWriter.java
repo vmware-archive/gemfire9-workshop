@@ -6,12 +6,12 @@ import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
 
-import com.gemstone.gemfire.cache.Declarable;
-import com.gemstone.gemfire.cache.EntryEvent;
-import com.gemstone.gemfire.cache.util.CacheWriterAdapter;
-import com.gemstone.gemfire.internal.cache.EntryEventImpl;
-import com.gemstone.gemfire.pdx.PdxInstance;
-import com.gemstone.gemfire.pdx.WritablePdxInstance;
+import org.apache.geode.cache.Declarable;
+import org.apache.geode.cache.EntryEvent;
+import org.apache.geode.cache.util.CacheWriterAdapter;
+import org.apache.geode.internal.cache.EntryEventImpl;
+import org.apache.geode.pdx.PdxInstance;
+import org.apache.geode.pdx.WritablePdxInstance;
 
 public class SimpleWriter<K,V> extends CacheWriterAdapter<K,V> implements Declarable {
 
@@ -20,7 +20,7 @@ public class SimpleWriter<K,V> extends CacheWriterAdapter<K,V> implements Declar
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.gemstone.gemfire.cache.util.CacheWriterAdapter#beforeCreate(com.gemstone.gemfire.cache.EntryEvent)
+	 * @see org.apache.geode.cache.util.CacheWriterAdapter#beforeCreate(org.apache.geode.cache.EntryEvent)
 	 */
 	@Override
 	 public void beforeCreate(EntryEvent<K, V> event) {

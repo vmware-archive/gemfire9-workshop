@@ -22,6 +22,7 @@ server1/
 *.zip
 *.tgz
 *.dat
+*.gfs
 BACKUP*
 DRLK*
 

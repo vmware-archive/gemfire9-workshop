@@ -4,7 +4,7 @@
 # PUT THIS INTO YOUR ~/.bash_profile since gfsh will use the variables from there
 
 
-export GEMFIRE_HOME=/usr/local/Cellar/gemfire/8.1.0/libexec
+export GEMFIRE_HOME=/usr/local/Cellar/gemfire/9.1.0/libexec
 export GEMFIRE=$GEMFIRE_HOME
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
@@ -16,7 +16,7 @@ export GF_JAVA=$JAVA_HOME/bin/java
 
 # this gets the IP of the machine for some gemfire bind addresses
 IP=$(ifconfig en0 | awk '/inet /{print substr($2,1)}' | tail -n1)
-HOSTNAME=gemhost
+HOSTNAME=localhost
 
 if [[ ${PATH} != *$JAVA_HOME* ]]; then
 export PATH=$PATH:$JAVA_HOME/bin

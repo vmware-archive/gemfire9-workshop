@@ -10,245 +10,232 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.gemstone.gemfire.cache.Region;
-import com.gemstone.gemfire.cache.client.ClientCache;
-import com.gemstone.gemfire.cache.client.ClientCacheFactory;
-
-public class BulkInsertPerson
-{
-    private Logger logger = Logger.getLogger(this.getClass().getSimpleName());
-    private ClientCache cache = null;
-    private final int BATCH_SIZE = 10000;
-    private final int SAMPLE_SIZE = 100000;
-
-    Random r = new Random(System.currentTimeMillis());
-    
-    int starting_integer = 1;
-    int increment_rate = 1;
-    int pause_per_insert = 1;
-    boolean is_fast_run = true;
+import org.apache.geode.cache.Region;
+import org.apache.geode.cache.client.ClientCache;
+import org.apache.geode.cache.client.ClientCacheFactory;
 
 
-    private BulkInsertPerson (boolean is_fast_run, int starting_integer, int increment_rate, int pause_per_insert)
-    {
-        ClientCacheFactory ccf = new ClientCacheFactory();
-        ccf.set("cache-xml-file", "config/query-client.xml");
-        cache = ccf.create();
-        
-        this.is_fast_run = is_fast_run;
-        this.starting_integer = starting_integer;
-        this.increment_rate = increment_rate;
-        this.pause_per_insert = pause_per_insert;
-    }
+public class BulkInsertPerson {
+	private Logger logger = Logger.getLogger(this.getClass().getSimpleName());
+	private ClientCache cache = null;
+	private final int BATCH_SIZE = 10000;
+	private final int SAMPLE_SIZE = 100000;
 
-    public void run()
-    {
-        Region<String,Person> peopleRegion = cache.getRegion("people");
+	Random r = new Random(System.currentTimeMillis());
 
-        long start = System.currentTimeMillis();
+	int starting_integer = 1;
+	int increment_rate = 1;
+	int pause_per_insert = 1;
+	boolean is_fast_run = true;
 
-        int key = starting_integer;
-        if (is_fast_run) {
-        	fastRun(peopleRegion, key);
-        }
-        else {
-        	slowRun(peopleRegion, key);
-       }
-        
-       long end = System.currentTimeMillis() - start;
+	private BulkInsertPerson(boolean is_fast_run, int starting_integer, int increment_rate, int pause_per_insert) {
+		ClientCacheFactory ccf = new ClientCacheFactory();
+		ccf.set("cache-xml-file", "config/query-client.xml");
+		cache = ccf.create();
 
-        float elapsedTimeSec = end/1000F;
+		this.is_fast_run = is_fast_run;
+		this.starting_integer = starting_integer;
+		this.increment_rate = increment_rate;
+		this.pause_per_insert = pause_per_insert;
+	}
 
-        logger.log (Level.INFO, String.format("Elapsed time in seconds %f", elapsedTimeSec));
-    }
+	public void run() {
+		Region<String, Person> peopleRegion = cache.getRegion("people");
 
-    private void fastRun(Region<String,Person> peopleRegion, int key) {
- 
-        Map<String, Person> buffer = new HashMap<String, Person>();
-//        Scanner scanner = new java.util.Scanner(System.in);
+		long start = System.currentTimeMillis();
 
-        for (int i = 0; i < SAMPLE_SIZE; i++)
-        {
-        	Person person = generatePerson(key);
-            buffer.put(String.valueOf(key), person);
-            
-            if ((i % BATCH_SIZE) == 0)
-            {
-                // ready to insert a batch into our region
-                peopleRegion.putAll(buffer);
-                buffer.clear();
-                
-                System.out.println("Inserted " + BATCH_SIZE + " records");
-//                System.out.println("Press any key to insert more...");
-//                scanner.nextLine();
-            }
-            key = key + increment_rate;
-        }
+		int key = starting_integer;
+		if (is_fast_run) {
+			fastRun(peopleRegion, key);
+		} else {
+			slowRun(peopleRegion, key);
+		}
 
-        // there may be existing records to flush so this takes care of it
-        if (!buffer.isEmpty())
-        {
-            peopleRegion.putAll(buffer);
-            buffer.clear();
-        }
-    }
+		long end = System.currentTimeMillis() - start;
 
-    private void slowRun(Region<String,Person> peopleRegion, int key) {
- 
-        for (int i = 0; i < SAMPLE_SIZE; i++)
-        {
-        	Person person = generatePerson(key);
-            peopleRegion.put(String.valueOf(key), person);
-            
-            if (i % 50 == 0) {
-            	System.out.println("Inserted " + i + " records so far");
-            }
-            try {
+		float elapsedTimeSec = end / 1000F;
+
+		logger.log(Level.INFO, String.format("Elapsed time in seconds %f", elapsedTimeSec));
+	}
+
+	private void fastRun(Region<String, Person> peopleRegion, int key) {
+
+		Map<String, Person> buffer = new HashMap<String, Person>();
+
+		for (int i = 0; i < SAMPLE_SIZE; i++) {
+			Person person = generatePerson(key);
+			buffer.put(String.valueOf(key), person);
+
+			if ((i % BATCH_SIZE) == 0) {
+				// ready to insert a batch into our region
+				peopleRegion.putAll(buffer);
+				buffer.clear();
+
+				System.out.println("Inserted " + BATCH_SIZE + " records");
+			}
+			key = key + increment_rate;
+		}
+
+		// there may be existing records to flush so this takes care of it
+		if (!buffer.isEmpty()) {
+			peopleRegion.putAll(buffer);
+			buffer.clear();
+		}
+	}
+
+	private void slowRun(Region<String, Person> peopleRegion, int key) {
+
+		for (int i = 0; i < SAMPLE_SIZE; i++) {
+			Person person = generatePerson(key);
+			peopleRegion.put(String.valueOf(key), person);
+
+			if (i % 50 == 0) {
+				System.out.println("Inserted " + i + " records so far");
+			}
+			try {
 				Thread.sleep(pause_per_insert * 1000);
 			} catch (InterruptedException e) {
 				// exit
 			}
-                
-            key = key + increment_rate;
-        }
-    }
-    
-    private Person generatePerson(int key) {
-       	int firstNameIx = r.nextInt(firstNames.size());
-    	int lastNameIx = r.nextInt(lastNames.size());
-        return new Person(key, String.format("%s %s", firstNames.get(firstNameIx), lastNames.get(lastNameIx)));
-    }
-    
-    public static void main(String[] args)
-    {
-        boolean is_fast_run = true;
-    	if (args.length > 1) {
-    		is_fast_run = args[0].equalsIgnoreCase("Fast");
-    	}
-        int starting_integer = 1;
-      	if (args.length > 2) {
-      		starting_integer = Integer.parseInt(args[1]);
-      	}
-        int increment_rate = 1;
-      	if (args.length > 3) {
-      		increment_rate = Integer.parseInt(args[2]);
-      	}
-          int pause_per_insert = 1;
-    	if (args.length > 4) {
-    		pause_per_insert = Integer.parseInt(args[3]);
-    	}
-  	
-        BulkInsertPerson test = new BulkInsertPerson(is_fast_run, starting_integer, increment_rate, pause_per_insert);
-        test.run();
-    }
-    
+
+			key = key + increment_rate;
+		}
+	}
+
+	private Person generatePerson(int key) {
+		int firstNameIx = r.nextInt(firstNames.size());
+		int lastNameIx = r.nextInt(lastNames.size());
+		return new Person(key, String.format("%s %s", firstNames.get(firstNameIx), lastNames.get(lastNameIx)));
+	}
+
+	public static void main(String[] args) {
+		boolean is_fast_run = true;
+		if (args.length > 1) {
+			is_fast_run = args[0].equalsIgnoreCase("Fast");
+		}
+		int starting_integer = 1;
+		if (args.length > 2) {
+			starting_integer = Integer.parseInt(args[1]);
+		}
+		int increment_rate = 1;
+		if (args.length > 3) {
+			increment_rate = Integer.parseInt(args[2]);
+		}
+		int pause_per_insert = 1;
+		if (args.length > 4) {
+			pause_per_insert = Integer.parseInt(args[3]);
+		}
+
+		BulkInsertPerson test = new BulkInsertPerson(is_fast_run, starting_integer, increment_rate, pause_per_insert);
+		test.run();
+	}
+
 	@SuppressWarnings("serial")
 	List<String> firstNames = new ArrayList<String>() {
 		{
-		    add("Roanna");
-		    add("Lacota");
-		    add("Jaden");
-		    add("Indira");
-		    add("Jolie");
-		    add("Yvette");
-		    add("Lydia");
-		    add("Shoshana");
-		    add("Mary");
-		    add("Victor");
-		    add("Ethan");
-		    add("Brody");
-		    add("Carly");
-		    add("Kai");
-		    add("Freya");
-		    add("Beverly");
-		    add("Brenna");
-		    add("Hammett");
-		    add("Stephanie");
-		    add("Zachery");
-		    add("Libby");
-		    add("Leandra");
-		    add("Lance");
-		    add("Talon");
-		    add("Giacomo");
-		    add("Quinn");
-		    add("Karyn");
-		    add("Chantale");
-		    add("Mikayla");
-		    add("Macaulay");
-		    add("Tatiana");
-		    add("Jordan");
-		    add("Mariam");
-		    add("Kenyon");
-		    add("Allistair");
-		    add("Madison");
-		    add("Nola");
-		    add("Stephanie");
-		    add("Casey");
-		    add("Amy");
-		    add("Caleb");
-		    add("Sarah");
-		    add("Blossom");
-		    add("Sigourney");
-		    add("Brielle");
-		    add("Kendall");
-		    add("Mariko");
-		    add("Cairo");
-		    add("Melodie");
-		    add("Ryder");
-		    add("Joan");
-		    add("Keefe");
-		    add("Igor");
-		    add("Penelope");
-		    add("Beck");
-		    add("Camden");
-		    add("Erica");
-		    add("Baxter");
-		    add("Rama");
-		    add("Clio");
-		    add("Kane");
-		    add("Salvador");
-		    add("Harding");
-		    add("Holly");
-		    add("Lynn");
-		    add("Channing");
-		    add("Yetta");
-		    add("Bo");
-		    add("Christine");
-		    add("Beatrice");
-		    add("Odette");
-		    add("Ocean");
-		    add("Wang");
-		    add("Jena");
-		    add("Germane");
-		    add("Hyatt");
-		    add("Gail");
-		    add("Hermione");
-		    add("Zenia");
-		    add("Callum");
-		    add("Mufutau");
-		    add("Alfonso");
-		    add("Oprah");
-		    add("Quynn");
-		    add("Germane");
-		    add("Fiona");
-		    add("Hall");
-		    add("Caryn");
-		    add("Georgia");
-		    add("Christian");
-		    add("Miranda");
-		    add("Renee");
-		    add("Zachary");
-		    add("Daniel");
-		    add("Tucker");
-		    add("Phyllis");
-		    add("Perry");
-		    add("Timon");
-		    add("Steel");
-		    add("Amena");
+			add("Roanna");
+			add("Lacota");
+			add("Jaden");
+			add("Indira");
+			add("Jolie");
+			add("Yvette");
+			add("Lydia");
+			add("Shoshana");
+			add("Mary");
+			add("Victor");
+			add("Ethan");
+			add("Brody");
+			add("Carly");
+			add("Kai");
+			add("Freya");
+			add("Beverly");
+			add("Brenna");
+			add("Hammett");
+			add("Stephanie");
+			add("Zachery");
+			add("Libby");
+			add("Leandra");
+			add("Lance");
+			add("Talon");
+			add("Giacomo");
+			add("Quinn");
+			add("Karyn");
+			add("Chantale");
+			add("Mikayla");
+			add("Macaulay");
+			add("Tatiana");
+			add("Jordan");
+			add("Mariam");
+			add("Kenyon");
+			add("Allistair");
+			add("Madison");
+			add("Nola");
+			add("Stephanie");
+			add("Casey");
+			add("Amy");
+			add("Caleb");
+			add("Sarah");
+			add("Blossom");
+			add("Sigourney");
+			add("Brielle");
+			add("Kendall");
+			add("Mariko");
+			add("Cairo");
+			add("Melodie");
+			add("Ryder");
+			add("Joan");
+			add("Keefe");
+			add("Igor");
+			add("Penelope");
+			add("Beck");
+			add("Camden");
+			add("Erica");
+			add("Baxter");
+			add("Rama");
+			add("Clio");
+			add("Kane");
+			add("Salvador");
+			add("Harding");
+			add("Holly");
+			add("Lynn");
+			add("Channing");
+			add("Yetta");
+			add("Bo");
+			add("Christine");
+			add("Beatrice");
+			add("Odette");
+			add("Ocean");
+			add("Wang");
+			add("Jena");
+			add("Germane");
+			add("Hyatt");
+			add("Gail");
+			add("Hermione");
+			add("Zenia");
+			add("Callum");
+			add("Mufutau");
+			add("Alfonso");
+			add("Oprah");
+			add("Quynn");
+			add("Germane");
+			add("Fiona");
+			add("Hall");
+			add("Caryn");
+			add("Georgia");
+			add("Christian");
+			add("Miranda");
+			add("Renee");
+			add("Zachary");
+			add("Daniel");
+			add("Tucker");
+			add("Phyllis");
+			add("Perry");
+			add("Timon");
+			add("Steel");
+			add("Amena");
 		}
 	};
-	
-    
+
 	@SuppressWarnings("serial")
 	List<String> lastNames = new ArrayList<String>() {
 		{

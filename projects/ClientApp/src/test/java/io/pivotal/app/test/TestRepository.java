@@ -6,6 +6,7 @@ import io.pivotal.domain.Department;
 import io.pivotal.domain.Employee;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -30,8 +31,8 @@ public class TestRepository
 
 		// call findOne CRUD method by key
 		System.out.println("\n** calling  deptRepos.findOne(\"20\") **");
-		Department dept = (Department) deptRepos.findOne("20");
-		System.out.println(dept);
+		Optional<Department> dept = deptRepos.findById("20");
+		System.out.println(dept.get());
 		
 		
 		Collection<Department> deps = (Collection<Department>) deptRepos.findAll(); 

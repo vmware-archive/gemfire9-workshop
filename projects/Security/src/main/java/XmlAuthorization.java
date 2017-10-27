@@ -23,15 +23,15 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXParseException;
 
-import com.gemstone.gemfire.LogWriter;
-import com.gemstone.gemfire.cache.Cache;
-import com.gemstone.gemfire.cache.operations.ExecuteFunctionOperationContext;
-import com.gemstone.gemfire.cache.operations.OperationContext;
-import com.gemstone.gemfire.cache.operations.QueryOperationContext;
-import com.gemstone.gemfire.cache.operations.OperationContext.OperationCode;
-import com.gemstone.gemfire.distributed.DistributedMember;
-import com.gemstone.gemfire.security.AccessControl;
-import com.gemstone.gemfire.security.NotAuthorizedException;
+import org.apache.geode.LogWriter;
+import org.apache.geode.cache.Cache;
+import org.apache.geode.cache.operations.ExecuteFunctionOperationContext;
+import org.apache.geode.cache.operations.OperationContext;
+import org.apache.geode.cache.operations.QueryOperationContext;
+import org.apache.geode.cache.operations.OperationContext.OperationCode;
+import org.apache.geode.distributed.DistributedMember;
+import org.apache.geode.security.AccessControl;
+import org.apache.geode.security.NotAuthorizedException;
 
 /**
  * An implementation of the <code>{@link AccessControl}</code> interface that

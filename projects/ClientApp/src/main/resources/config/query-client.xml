@@ -4,12 +4,12 @@
 <client-cache>
 
     <pool name="clientPool" max-connections="10">
-        <locator host="gemhost" port="10334"/>
+        <locator host="localhost" port="10334"/>
     </pool>
 
     <pdx>
 	 <pdx-serializer>
-	   <class-name>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</class-name>
+	   <class-name>org.apache.geode.pdx.ReflectionBasedAutoSerializer</class-name>
 	   <parameter name="classes">
 	   		<string>.*</string>
 	   </parameter>

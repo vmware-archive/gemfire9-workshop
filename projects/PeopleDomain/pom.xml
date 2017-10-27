@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>io.pivotal</groupId>
 		<artifactId>projects</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1</version>
 	</parent>
 	<artifactId>PeopleDomain</artifactId>
 	<name>People Domain Model</name>

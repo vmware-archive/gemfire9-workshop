@@ -7,7 +7,7 @@
     
     <pdx read-serialized="true">
         <pdx-serializer>
-            <class-name>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</class-name>
+            <class-name>org.apache.geode.pdx.ReflectionBasedAutoSerializer</class-name>
             <parameter name="classes">
                 <string>io.pivotal.domain.*</string>
             </parameter>

@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>io.pivotal</groupId>
 		<artifactId>projects</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1</version>
 	</parent>
 	<artifactId>GemServer</artifactId>
 
@@ -27,13 +27,13 @@
 		<dependency>
 			<groupId>io.pivotal</groupId>
 			<artifactId>Domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.pivotal</groupId>
 			<artifactId>PeopleDomain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>

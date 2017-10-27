@@ -1,12 +1,12 @@
 package io.pivotal.function;
 
-import com.gemstone.gemfire.cache.CacheFactory;
-import com.gemstone.gemfire.cache.GemFireCache;
-import com.gemstone.gemfire.cache.Region;
-import com.gemstone.gemfire.cache.execute.FunctionAdapter;
-import com.gemstone.gemfire.cache.execute.FunctionContext;
+import org.apache.geode.cache.CacheFactory;
+import org.apache.geode.cache.GemFireCache;
+import org.apache.geode.cache.Region;
+import org.apache.geode.cache.execute.Function;
+import org.apache.geode.cache.execute.FunctionContext;
 
-public class SizeFunction extends FunctionAdapter
+public class SizeFunction implements Function
 {
     private static final long serialVersionUID = 1L;
 
@@ -22,7 +22,8 @@ public class SizeFunction extends FunctionAdapter
     @Override
     public void execute(FunctionContext context)
     {
-        String regionName = (String) context.getArguments();
+        String[] arguments = (String[]) context.getArguments();
+        String regionName = (String) arguments[0];
         Region<Object, Object> region = this.cache.getRegion(regionName);
         System.out.println("Getting size of region " + region.getFullPath());
         context.getResultSender().lastResult(region.size());

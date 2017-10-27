@@ -12,7 +12,7 @@ All XMLs must include a DOCTYPE of the following form:
 
 The contents of a declarative XML file correspond to APIs found in the
 
-                      com.gemstone.gemfire.security.AccessControl
+                      org.apache.geode.security.AccessControl
 
 package. The sample implementation may be used to specify access control
 policies.

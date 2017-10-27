@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>io.pivotal</groupId>
 		<artifactId>parent-pom</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1</version>
 	</parent>
 
 	<artifactId>20_CacheEvents</artifactId>
@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-gemfire</artifactId>
-			<version>1.6.0.RELEASE</version>
+			<version>2.0.0.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -35,19 +35,19 @@
 		<dependency>
 			<groupId>io.pivotal</groupId>
 			<artifactId>Domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.pivotal</groupId>
 			<artifactId>PeopleDomain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.pivotal</groupId>
 			<artifactId>GemServer</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>

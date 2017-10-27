@@ -5,14 +5,14 @@
 
 	<groupId>io.pivotal</groupId>
 	<artifactId>parent-pom</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<packaging>pom</packaging>
 
 	<name>parent-pom</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<geode.version>1.1.0</geode.version>
+		<geode.version>9.1.0</geode.version>
 		<spring-data-geode.version>1.0.0.INCUBATING-RELEASE</spring-data-geode.version>
 		<spring-shell.version>1.2.0.RELEASE</spring-shell.version>
 		<spring-boot.version>1.5.1.RELEASE</spring-boot.version>
@@ -38,7 +38,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.geode</groupId>
+			<groupId>io.pivotal.gemfire</groupId>
 			<artifactId>geode-core</artifactId>
 			<version>${geode.version}</version>
 			<scope>provided</scope>
@@ -49,10 +49,17 @@
 			<version>4.1.4.RELEASE</version>
 			<scope>compile</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.10</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.9.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.9.1</version>
 		</dependency>
 	</dependencies>
 	<repositories>

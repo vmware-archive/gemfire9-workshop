@@ -1,17 +1,10 @@
 package io.pivotal.app.test;
 
-import io.pivotal.app.repos.DeptRepository;
-import io.pivotal.app.repos.EmpRepository;
-import io.pivotal.domain.Department;
-import io.pivotal.domain.Employee;
-
-import java.util.Collection;
-
-import com.gemstone.gemfire.cache.Cache;
-import com.gemstone.gemfire.cache.CacheFactory;
-import com.gemstone.gemfire.cache.snapshot.CacheSnapshotService;
-import com.gemstone.gemfire.internal.cache.GemFireCacheImpl;
-import com.gemstone.gemfire.internal.cache.snapshot.CacheSnapshotServiceImpl;
+import org.apache.geode.cache.Cache;
+import org.apache.geode.cache.CacheFactory;
+import org.apache.geode.cache.snapshot.CacheSnapshotService;
+import org.apache.geode.internal.cache.GemFireCacheImpl;
+import org.apache.geode.internal.cache.snapshot.CacheSnapshotServiceImpl;
 
 public class CacheSnapshotTest 
 {
@@ -22,7 +15,7 @@ public class CacheSnapshotTest
 	{
         CacheFactory cf = new CacheFactory();
         cf.set("cache-xml-file", "config/peer-cache.xml");
-        cf.set("locators", "gemhost[10334]");
+        cf.set("locators", "localhost[10334]");
         cache = cf.create();
 	}
 

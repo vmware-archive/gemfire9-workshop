@@ -9,7 +9,7 @@ echo IP=$IP
 . ../setenvironment.sh
 
 gfsh <<!
-connect --locator=gemhost[10334]
+connect --locator=localhost[10334]
 
 start server --name=server3 --locators=$HOSTNAME[$LOCATOR_PORT] --J=-Xms512m --J=-Xmx512m --classpath=$GEMFIRE/lib/server-dependencies.jar:$PROJECT_JARS --cache-xml-file=config/cache.xml --properties-file=config/gemfire.properties --server-port=$SERVER3_PORT
 

@@ -16,7 +16,7 @@
 	    properties-ref="props" />
 	
 	<gfe:pool id="gfPool" max-connections="10">
-		<gfe:locator host="gemhost" port="10334"/>
+		<gfe:locator host="localhost" port="10334"/>
 	</gfe:pool>
 	
 	<gfe:lookup-region id="departments" name="departments" cache-ref="client-cache"/>

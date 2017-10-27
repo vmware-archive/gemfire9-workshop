@@ -4,11 +4,11 @@ import io.pivotal.domain.Employee;
 
 import java.util.Map;
 
-import com.gemstone.gemfire.cache.Cache;
-import com.gemstone.gemfire.cache.CacheFactory;
-import com.gemstone.gemfire.cache.Region;
-import com.gemstone.gemfire.cache.partition.PartitionRegionHelper;
-import com.gemstone.gemfire.distributed.DistributedMember;
+import org.apache.geode.cache.Cache;
+import org.apache.geode.cache.CacheFactory;
+import org.apache.geode.cache.Region;
+import org.apache.geode.cache.partition.PartitionRegionHelper;
+import org.apache.geode.distributed.DistributedMember;
 
 public class VerifyDataLocations
 {
@@ -18,7 +18,7 @@ public class VerifyDataLocations
     {
         CacheFactory cf = new CacheFactory();
         cf.set("cache-xml-file", "config/datalocations-cache-no-storage.xml");
-        cf.set("locators", "gemhost[10334]");
+        cf.set("locators", "localhost[10334]");
         cache = cf.create();
     }
 
