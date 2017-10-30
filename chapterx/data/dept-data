@@ -1,5 +1,0 @@
-put --key=10 --value=('deptno':10,'name':'ACCOUNTING') --value-class=io.pivotal.domain.Department --region=departments;
-put --key=20 --value=('deptno':20,'name':'RESEARCH') --value-class=io.pivotal.domain.Department --region=departments;
-put --key=30 --value=('deptno':30,'name':'SALES') --value-class=io.pivotal.domain.Department --region=departments;
-put --key=40 --value=('deptno':40,'name':'OPERATIONS') --value-class=io.pivotal.domain.Department --region=departments;
-
